@@ -1,0 +1,99 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about a user in the system.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Project": {
+      "title": "Simulation Project",
+      "description": "A collaborative workspace for simulations.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "collaborators": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "isPublic": { "type": "boolean" }
+      },
+      "required": ["name", "ownerId"]
+    },
+    "Agent": {
+      "title": "AI Agent",
+      "description": "A personal or project-level AI assistant.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "name": { "type": "string" },
+        "model": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "memory": { "type": "string" },
+        "status": { "type": "string", "enum": ["idle", "busy", "offline"] }
+      },
+      "required": ["name", "model"]
+    },
+    "Module": {
+      "title": "Simulation Module",
+      "description": "A reusable component for simulations.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "type": { "type": "string" },
+        "config": { "type": "object" },
+        "authorId": { "type": "string" }
+      },
+      "required": ["name", "type"]
+    },
+    "Solution": {
+      "title": "Finished Solution",
+      "description": "A completed simulation run or project result.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "name": { "type": "string" },
+        "results": { "type": "object" },
+        "visualizations": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "projectId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles."
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Project workspaces."
+    },
+    "/projects/{projectId}/agents/{agentId}": {
+      "schema": "Agent",
+      "description": "AI agents within a project."
+    },
+    "/modules/{moduleId}": {
+      "schema": "Module",
+      "description": "Global or shared modules."
+    },
+    "/solutions/{solutionId}": {
+      "schema": "Solution",
+      "description": "Simulation results and solutions."
+    }
+  }
+}

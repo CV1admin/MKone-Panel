@@ -1,0 +1,9 @@
+{
+  "name": "Universal Simulation Control Panel",
+  "description": "A multi-user AI collaboration platform for the MKone / AGT ecosystem, featuring personal AI agents, module galleries, and advanced simulation processing.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
